@@ -1,56 +1,54 @@
-I built a small web app called DevGenius that acts like an automated software development team. You give it a feature request (like "create a calculator function"), and a team of AI agents work together to write, test, and fix the code until it's ready. It's designed to automate the slow, back-and-forth process of coding.
+# 🚀 DevGenius: Your Automated AI Software Development Team
 
-1. The Problem: Coding Can Be a Slow Grind
-Writing code isn't just about typing. A huge amount of time is spent on a repetitive cycle:
+DevGenius is a small web app that acts like an **automated software development team**.  
+You give it a feature request (like *"create a calculator function"*), and a team of AI agents work together to **write, test, review, and fix the code until it’s ready**.  
 
-A developer writes some code.
+It’s designed to **eliminate the slow, back-and-forth process of coding** and automate the entire development loop.
 
-It goes to a reviewer for feedback.
+---
 
-It goes to a tester to see if it breaks.
+## ❌ The Problem: Coding Can Be a Slow Grind
+Writing code isn’t just about typing. Most of the time is spent in a repetitive feedback cycle:
 
-If there are issues, it goes back to the developer to be fixed.
+1. A developer writes some code  
+2. A reviewer checks it and gives feedback  
+3. A tester runs it to see if it breaks  
+4. If there are issues, it goes back to the developer to be fixed  
 
-This feedback loop is essential for quality, but it's also a major bottleneck. My project tackles this head-on.
+This loop is **essential for quality**, but also a **major bottleneck**.  
+**DevGenius tackles this head-on.**
 
-2. My Solution: An AI Team That Does the Work for You
-DevGenius uses a team of specialized AI agents that mimic a real-world dev team. The entire process is automated in a continuous loop.
+---
 
-Here’s how the team works together:
+## ✅ The Solution: An AI Team That Works for You
+DevGenius uses a team of specialized **AI agents** that mimic a real-world dev team.  
+The entire process is **automated in a continuous loop**:
 
-🤵 The Project Manager: You give it a simple request. It turns that into a clear, detailed task for the Coder.
+- 🤵 **Project Manager** → Turns your simple request into a detailed coding task  
+- 👨‍💻 **Coder** → Writes the first draft of the Python code  
+- 🧐 **Reviewer** → Reviews the code for bugs, style issues, and potential problems  
+- 🧪 **Tester** → Writes and runs `pytest` tests to check correctness and edge cases  
+- 🛠️ **Fixer (Refactor Agent)** → Fixes issues found by the Reviewer or Tester and improves the code  
 
-👨‍💻 The Coder: Gets the task and writes the first draft of the Python code.
+If issues are found, the code is **sent back through the loop** until it’s fixed (or a maximum number of tries is reached).
 
-🧐 The Reviewer: Scans the code for bugs, style issues, and potential problems. It provides feedback just like a senior developer would.
+---
 
-🧪 The Tester: Writes and runs pytest tests to check if the code actually works and handles edge cases.
+## 🛠️ Tech Stack
+- **LangGraph** – Enables agent collaboration in a feedback loop  
+- **LangChain** – Connects agents to the Large Language Model (LLM)  
+- **Streamlit** – Provides a clean and interactive web interface  
+- **Python (subprocess & tempfile)** – Creates a safe, temporary sandbox for running generated code and tests  
 
-🛠️ The Fixer (Refactor Agent): If the Reviewer or Tester finds any issues, this agent takes their feedback and the broken code, then writes an improved version.
+---
 
-This new version doesn't get a free pass—it's sent right back to the Reviewer and Tester. This loop continues until the code is perfect or it hits a set number of tries.
+## 🧠 Choosing the AI Brain
+The agents are powered by **LLMs (Large Language Models)**.  
+The better the model, the better the results.
 
-3. The Tech Stack (What's Under the Hood)
-I used a few key tools to bring this to life:
+- **🌟 Dream Choice: GPT-4o** – Excellent at writing, understanding, and fixing code  
+- **💡 Free & Practical Choice: Gemini 1.5 Flash** – Great free alternative with a massive memory (context window), ideal for the Fixer agent  
 
-LangGraph: The most important tool. It let me create the feedback loop where agents can send work back and forth. A simple linear tool wouldn't work for this.
+---
 
-LangChain: The bridge that connects my agents to the Large Language Model (LLM), allowing them to think and write.
-
-Streamlit: A super simple Python library for building the web interface you see. Perfect for making quick, interactive demos.
-
-Python (subprocess & tempfile): Used to create a safe, temporary "sandbox" to run the generated code and tests without any security risks.
-
-4. Choosing the Right AI Brain (The LLM)
-The quality of the agents depends entirely on the LLM powering them.
-
-The Dream Choice: GPT-4o
-For a real-world application, this is the best choice. It's incredibly smart at writing, understanding, and fixing code, which is exactly what my Coder, Reviewer, and Fixer agents need.
-
-The Free & Practical Choice: Gemini 1.5 Flash
-This is a fantastic free alternative. Its key feature is a massive "memory" (context window), which is perfect for the Fixer agent—it can look at the original code, the review comments, and the test results all at once to make a smart fix.
-
-5. Code & Demo
-GitHub Repo: https://github.com/your-username/devgenius-ai-agent-team (Placeholder link)
-
-Live Demo: https://devgenius-demo.streamlit.app (Placeholder link)
+## 📂 Project Structure
