@@ -52,6 +52,8 @@ write, review, and refine code.
 
 ---
 
+![alt text](image.png)
+
 ## 🧠 Choosing the AI Brain
 
 The agents are powered by **LLMs (Large Language Models)**.  
