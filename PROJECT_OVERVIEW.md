@@ -49,6 +49,4 @@ The better the model, the better the results.
 - **🌟 Dream Choice: GPT-4o** – Excellent at writing, understanding, and fixing code  
 - **💡 Free & Practical Choice: Gemini 1.5 Flash** – Great free alternative with a massive memory (context window), ideal for the Fixer agent  
 
----
 
-## 📂 Project Structure
