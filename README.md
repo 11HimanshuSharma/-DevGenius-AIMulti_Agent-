@@ -29,6 +29,10 @@ feedback cycle:
 This loop is **essential for quality**, but also a **major bottleneck**.  
 **DevGenius tackles this head-on.**
 
+## Workflow:-
+
+![alt text](image.png)
+
 ## 🚀 How It Works
 
 The system uses a team of specialized AI agents that collaborate in a loop to
@@ -51,8 +55,6 @@ write, review, and refine code.
   running generated code and tests
 
 ---
-
-![alt text](image.png)
 
 ## 🧠 Choosing the AI Brain
 
