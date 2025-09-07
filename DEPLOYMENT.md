@@ -35,7 +35,7 @@
 
 1. In your Streamlit Cloud app dashboard, click "Manage app"
 2. Go to "Secrets" tab
-3. Add your Azure OpenAI credentials:
+3. Add your Azure OpenAI credentials in this exact format:
    ```toml
    AZURE_OPENAI_CHAT_DEPLOYMENT_NAME = "your_deployment_name"
    AZURE_OPENAI_CHAT_ENDPOINT = "https://your-resource.openai.azure.com/"

@@ -127,6 +127,43 @@ def main():
     # Render header
     render_header()
     
+    # Check for proper configuration before showing the interface
+    try:
+        from config import get_llm
+        # Test LLM configuration
+        get_llm()
+        config_ok = True
+    except Exception as e:
+        config_ok = False
+        st.error(f"⚠️ Configuration Error: {str(e)}")
+        st.markdown("""
+        **To fix this issue:**
+        
+        **For Local Development:**
+        1. Create a `.env` file in the project root
+        2. Add your Azure OpenAI credentials:
+           ```
+           AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=your_deployment_name
+           AZURE_OPENAI_CHAT_ENDPOINT=https://your-resource.openai.azure.com/
+           AZURE_OPENAI_CHAT_API_KEY=your_api_key
+           ```
+        
+        **For Streamlit Cloud:**
+        1. Go to your app's "Manage app" page
+        2. Click on "Secrets" tab
+        3. Add the credentials in TOML format:
+           ```toml
+           AZURE_OPENAI_CHAT_DEPLOYMENT_NAME = "your_deployment_name"
+           AZURE_OPENAI_CHAT_ENDPOINT = "https://your-resource.openai.azure.com/"
+           AZURE_OPENAI_CHAT_API_KEY = "your_api_key"
+           ```
+        4. Save and restart the app
+        """)
+        return
+    
+    if not config_ok:
+        return
+    
     # Render settings sidebar
     max_iterations = render_settings_sidebar()
     

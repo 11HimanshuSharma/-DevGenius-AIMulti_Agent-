@@ -13,22 +13,42 @@ from langchain_openai import AzureChatOpenAI
 load_dotenv()
 
 
+def get_config_value(key: str) -> str:
+    """
+    Get configuration value from either Streamlit secrets or environment variables.
+    
+    Args:
+        key: Configuration key name
+        
+    Returns:
+        Configuration value or None if not found
+    """
+    # Try Streamlit secrets first (for cloud deployment)
+    try:
+        if hasattr(st, 'secrets') and st.secrets:
+            return st.secrets.get(key)
+    except Exception:
+        pass
+    
+    # Fall back to environment variables (for local development)
+    return os.getenv(key)
+
+
 class Config:
     """Configuration class to hold all application settings."""
     
     # Azure OpenAI Configuration - handles both local .env and Streamlit secrets
-    AZURE_DEPLOYMENT_NAME = (
-        st.secrets.get("AZURE_OPENAI_CHAT_DEPLOYMENT_NAME") if hasattr(st, 'secrets') 
-        else os.getenv("AZURE_OPENAI_CHAT_DEPLOYMENT_NAME")
-    )
-    AZURE_ENDPOINT = (
-        st.secrets.get("AZURE_OPENAI_CHAT_ENDPOINT") if hasattr(st, 'secrets')
-        else os.getenv("AZURE_OPENAI_CHAT_ENDPOINT")
-    )
-    AZURE_API_KEY = (
-        st.secrets.get("AZURE_OPENAI_CHAT_API_KEY") if hasattr(st, 'secrets')
-        else os.getenv("AZURE_OPENAI_CHAT_API_KEY")
-    )
+    @property
+    def AZURE_DEPLOYMENT_NAME(self) -> str:
+        return get_config_value("AZURE_OPENAI_CHAT_DEPLOYMENT_NAME")
+    
+    @property  
+    def AZURE_ENDPOINT(self) -> str:
+        return get_config_value("AZURE_OPENAI_CHAT_ENDPOINT")
+    
+    @property
+    def AZURE_API_KEY(self) -> str:
+        return get_config_value("AZURE_OPENAI_CHAT_API_KEY")
     AZURE_API_VERSION = "2024-12-01-preview"
     
     # LLM Configuration
@@ -48,11 +68,26 @@ def get_llm() -> AzureChatOpenAI:
     
     Returns:
         AzureChatOpenAI: Configured LLM instance
+        
+    Raises:
+        ValueError: If required credentials are missing
     """
+    config = Config()
+    
+    # Validate that all required credentials are present
+    if not config.AZURE_DEPLOYMENT_NAME:
+        raise ValueError("Missing AZURE_OPENAI_CHAT_DEPLOYMENT_NAME. Please check your environment variables or Streamlit secrets.")
+    
+    if not config.AZURE_ENDPOINT:
+        raise ValueError("Missing AZURE_OPENAI_CHAT_ENDPOINT. Please check your environment variables or Streamlit secrets.")
+        
+    if not config.AZURE_API_KEY:
+        raise ValueError("Missing AZURE_OPENAI_CHAT_API_KEY. Please check your environment variables or Streamlit secrets.")
+    
     return AzureChatOpenAI(
-        azure_deployment=Config.AZURE_DEPLOYMENT_NAME,
-        azure_endpoint=Config.AZURE_ENDPOINT,
-        api_key=Config.AZURE_API_KEY,
+        azure_deployment=config.AZURE_DEPLOYMENT_NAME,
+        azure_endpoint=config.AZURE_ENDPOINT,
+        api_key=config.AZURE_API_KEY,
         api_version=Config.AZURE_API_VERSION,
         temperature=Config.TEMPERATURE,
         max_tokens=Config.MAX_TOKENS,
