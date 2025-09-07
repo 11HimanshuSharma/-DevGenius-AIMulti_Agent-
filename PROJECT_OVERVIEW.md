@@ -1,162 +1,56 @@
-<!-- @format -->
+I built a small web app called DevGenius that acts like an automated software development team. You give it a feature request (like "create a calculator function"), and a team of AI agents work together to write, test, and fix the code until it's ready. It's designed to automate the slow, back-and-forth process of coding.
 
-# 📋 DevGenius: Detailed Project Description
+1. The Problem: Coding Can Be a Slow Grind
+Writing code isn't just about typing. A huge amount of time is spent on a repetitive cycle:
 
-## 🎯 Application Overview
+A developer writes some code.
 
-DevGenius is an AI-powered multi-agent system that simulates a complete software
-development team. The application takes a high-level user request (e.g., "Create
-a function to process weather data") and automatically orchestrates multiple
-specialized AI agents to deliver production-ready code through a comprehensive
-development workflow.
+It goes to a reviewer for feedback.
 
-## 🤖 Agent Architecture & Interactions
+It goes to a tester to see if it breaks.
 
-### 1. **🤵 Project Manager Agent**
+If there are issues, it goes back to the developer to be fixed.
 
-**Role**: Requirements Analysis & Task Planning
+This feedback loop is essential for quality, but it's also a major bottleneck. My project tackles this head-on.
 
-- **Input**: Raw user request
-- **Process**: Analyzes requirements, breaks down complexity, creates detailed
-  specifications
-- **Output**: Structured task description with acceptance criteria
-- **Specialty**: Business analysis, requirement engineering, project scoping
+2. My Solution: An AI Team That Does the Work for You
+DevGenius uses a team of specialized AI agents that mimic a real-world dev team. The entire process is automated in a continuous loop.
 
-### 2. **👨‍💻 Developer Agent**
+Here’s how the team works together:
 
-**Role**: Code Implementation
+🤵 The Project Manager: You give it a simple request. It turns that into a clear, detailed task for the Coder.
 
-- **Input**: Detailed task specification from Project Manager
-- **Process**: Writes clean, efficient Python code following best practices
-- **Output**: Initial code implementation
-- **Specialty**: Software architecture, algorithm implementation, code structure
+👨‍💻 The Coder: Gets the task and writes the first draft of the Python code.
 
-### 3. **🧐 Code Reviewer Agent**
+🧐 The Reviewer: Scans the code for bugs, style issues, and potential problems. It provides feedback just like a senior developer would.
 
-**Role**: Quality Assurance & Security Analysis
+🧪 The Tester: Writes and runs pytest tests to check if the code actually works and handles edge cases.
 
-- **Input**: Developer's code implementation
-- **Process**: Reviews for bugs, security vulnerabilities, code smells,
-  performance issues
-- **Output**: Detailed review feedback and improvement suggestions
-- **Specialty**: Security auditing, performance optimization, coding standards
+🛠️ The Fixer (Refactor Agent): If the Reviewer or Tester finds any issues, this agent takes their feedback and the broken code, then writes an improved version.
 
-### 4. **🧪 Tester Agent**
+This new version doesn't get a free pass—it's sent right back to the Reviewer and Tester. This loop continues until the code is perfect or it hits a set number of tries.
 
-**Role**: Test Creation & Validation
+3. The Tech Stack (What's Under the Hood)
+I used a few key tools to bring this to life:
 
-- **Input**: Code implementation from Developer
-- **Process**: Creates comprehensive unit tests, executes test suites, validates
-  functionality
-- **Output**: Test results and coverage analysis
-- **Specialty**: Test-driven development, edge case identification, quality
-  validation
+LangGraph: The most important tool. It let me create the feedback loop where agents can send work back and forth. A simple linear tool wouldn't work for this.
 
-### 5. **🛠️ Refactor Agent**
+LangChain: The bridge that connects my agents to the Large Language Model (LLM), allowing them to think and write.
 
-**Role**: Code Improvement & Integration
+Streamlit: A super simple Python library for building the web interface you see. Perfect for making quick, interactive demos.
 
-- **Input**: Original code + Review feedback + Test results
-- **Process**: Applies improvements, fixes issues, optimizes performance
-- **Output**: Refined, production-ready code
-- **Specialty**: Code optimization, refactoring patterns, integration
+Python (subprocess & tempfile): Used to create a safe, temporary "sandbox" to run the generated code and tests without any security risks.
 
-## 🔄 Workflow Orchestration
+4. Choosing the Right AI Brain (The LLM)
+The quality of the agents depends entirely on the LLM powering them.
 
-### Linear Progression with Feedback Loops
+The Dream Choice: GPT-4o
+For a real-world application, this is the best choice. It's incredibly smart at writing, understanding, and fixing code, which is exactly what my Coder, Reviewer, and Fixer agents need.
 
-```
-User Request → Project Manager → Developer → Code Reviewer → Tester
-                                                ↓
-Final Code ← Refactor Agent ←←←←←←←←←←←←←←←←←←←←←←←↓
-     ↑                                         ↓
-     ←←←←←←← (if approved) ←←←← Decision Point ←←↓
-     ↑                           ↓
-     ←←←←←← (if needs work) ←←←←←←↓
-```
+The Free & Practical Choice: Gemini 1.5 Flash
+This is a fantastic free alternative. Its key feature is a massive "memory" (context window), which is perfect for the Fixer agent—it can look at the original code, the review comments, and the test results all at once to make a smart fix.
 
-### Decision Logic
+5. Code & Demo
+GitHub Repo: https://github.com/your-username/devgenius-ai-agent-team (Placeholder link)
 
-- **Approval Criteria**: Clean review + All tests passing
-- **Iteration Trigger**: Issues found OR test failures
-- **Max Iterations**: Configurable (default: 3)
-- **Quality Gates**: Each agent validates input before processing
-
-### Agent Communication Protocol
-
-- **State Management**: Shared state object tracks progress and artifacts
-- **Message Passing**: LangGraph manages agent transitions
-- **Data Flow**: Structured handoffs with validation
-- **Error Handling**: Graceful degradation and retry mechanisms
-
-## 🎮 User Interaction Flow
-
-### 1. **Input Phase**
-
-- User provides natural language description
-- System validates and accepts request
-- Configuration options (max iterations, etc.)
-
-### 2. **Processing Phase**
-
-- Real-time progress updates
-- Agent status indicators
-- Intermediate artifact display (tasks, code, reviews, tests)
-
-### 3. **Output Phase**
-
-- Final code presentation
-- Execution statistics
-- Download options
-- Quality metrics
-
-## 🚀 Real-World Applications
-
-### Development Scenarios
-
-- **Rapid Prototyping**: Quick POC development
-- **Code Review Automation**: Consistent quality checks
-- **Educational Tool**: Learning best practices
-- **API Development**: RESTful service creation
-- **Data Processing**: ETL pipeline generation
-- **Algorithm Implementation**: Complex logic development
-
-### Business Value
-
-- **Reduced Development Time**: 80% faster initial implementation
-- **Consistent Quality**: Standardized review process
-- **Knowledge Transfer**: Best practices embedded in agents
-- **Scalability**: Handle multiple requests simultaneously
-- **Cost Efficiency**: Reduced need for specialized expertise
-
-## 🏗️ Technical Innovation
-
-### Multi-Agent Coordination
-
-- **Specialized Prompting**: Each agent optimized for specific tasks
-- **Context Preservation**: Maintains context across agent transitions
-- **Quality Assurance**: Multi-layer validation process
-- **Iterative Refinement**: Continuous improvement cycles
-
-### Intelligent Orchestration
-
-- **Dynamic Workflow**: Adapts based on complexity
-- **Smart Routing**: Conditional agent activation
-- **Resource Management**: Efficient LLM usage
-- **State Persistence**: Maintains workflow context
-
-## 📊 Success Metrics
-
-### Quality Indicators
-
-- **Code Quality Score**: Static analysis metrics
-- **Test Coverage**: Percentage of code covered
-- **Review Compliance**: Issues addressed ratio
-- **Iteration Efficiency**: Average cycles to completion
-
-### Performance Metrics
-
-- **Response Time**: End-to-end completion
-- **Success Rate**: Successful completions
-- **User Satisfaction**: Feedback scores
-- **Resource Utilization**: LLM token efficiency
+Live Demo: https://devgenius-demo.streamlit.app (Placeholder link)
