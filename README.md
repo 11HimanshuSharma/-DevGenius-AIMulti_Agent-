@@ -1,42 +1,60 @@
+<!-- @format -->
+
 # 🤖 DevGenius: AI Multi-Agent Development Team
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://your-app-name.streamlit.app)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**A sophisticated AI multi-agent system that simulates a complete software development team, automating the entire code development lifecycle from requirements analysis to final implementation.**
+**A sophisticated AI multi-agent system that simulates a complete software
+development team, automating the entire code development lifecycle from
+requirements analysis to final implementation.**
 
 ## 🎯 Problem Statement
 
 ### The Challenge
-Software development is a complex, multi-stage process that traditionally requires diverse expertise:
+
+Software development is a complex, multi-stage process that traditionally
+requires diverse expertise:
+
 - **Requirements Analysis**: Understanding and breaking down user needs
 - **Code Development**: Writing clean, efficient implementations
 - **Code Review**: Ensuring quality, security, and best practices
 - **Testing**: Creating comprehensive test suites and validation
 - **Refactoring**: Iterative improvement based on feedback
 
-Currently, individual developers or small teams must handle all these responsibilities, leading to:
-- **Knowledge Gaps**: Not everyone excels in all areas (testing, security, architecture)
+Currently, individual developers or small teams must handle all these
+responsibilities, leading to:
+
+- **Knowledge Gaps**: Not everyone excels in all areas (testing, security,
+  architecture)
 - **Time Constraints**: Manual process is slow and error-prone
 - **Inconsistent Quality**: Human oversight limitations
 - **Scalability Issues**: Hard to maintain quality across large projects
 
 ### Why AI Multi-Agent Systems?
+
 This problem is **perfectly suited for AI multi-agent collaboration** because:
 
-1. **Specialized Expertise**: Each agent can be optimized for specific domains (testing, security, code quality)
-2. **Parallel Processing**: Multiple agents can work simultaneously on different aspects
+1. **Specialized Expertise**: Each agent can be optimized for specific domains
+   (testing, security, code quality)
+2. **Parallel Processing**: Multiple agents can work simultaneously on different
+   aspects
 3. **Consistent Quality**: AI agents don't suffer from fatigue or oversight
-4. **Iterative Improvement**: Agents can collaborate through multiple refinement cycles
+4. **Iterative Improvement**: Agents can collaborate through multiple refinement
+   cycles
 5. **Scalability**: System can handle multiple projects simultaneously
-6. **Knowledge Aggregation**: Combines best practices from vast training datasets
+6. **Knowledge Aggregation**: Combines best practices from vast training
+   datasets
 
 ### Unique Value of Multi-Agent Collaboration
-- **Domain Specialization**: Each agent has focused expertise and specialized prompting
+
+- **Domain Specialization**: Each agent has focused expertise and specialized
+  prompting
 - **Quality Assurance**: Multiple perspectives ensure comprehensive coverage
 - **Automated Workflow**: Seamless handoffs between development stages
-- **Continuous Feedback Loop**: Iterative improvement through agent collaboration
+- **Continuous Feedback Loop**: Iterative improvement through agent
+  collaboration
 - **Consistency**: Standardized processes across all projects
 
 ## 🏗️ Project Structure
@@ -95,6 +113,7 @@ The system consists of 5 specialized AI agents:
 ## 🏗️ Project Architecture
 
 ### Multi-Agent Workflow
+
 ```
 User Request → Project Manager → Developer → Code Reviewer → Tester
                                                 ↓
@@ -106,36 +125,44 @@ Final Code ← Refactor Agent ←←←← Decision Point ←←↓
 ### 🤖 Agent Specifications
 
 #### 🤵 **Project Manager Agent**
+
 - **Role**: Requirements analysis and task decomposition
 - **Input**: Raw user requests
 - **Output**: Structured, actionable task descriptions
 - **Specialty**: Business analysis, scope definition, acceptance criteria
 
-#### 👨‍💻 **Developer Agent** 
+#### 👨‍💻 **Developer Agent**
+
 - **Role**: Code implementation and architecture
 - **Input**: Detailed task specifications
 - **Output**: Clean, functional Python code
 - **Specialty**: Software design patterns, code structure, best practices
 
 #### 🧐 **Code Reviewer Agent**
+
 - **Role**: Quality assurance and security analysis
 - **Input**: Generated code
 - **Output**: Comprehensive review feedback
-- **Specialty**: Security vulnerabilities, performance optimization, code quality
+- **Specialty**: Security vulnerabilities, performance optimization, code
+  quality
 
 #### 🧪 **Tester Agent**
+
 - **Role**: Test creation and validation
 - **Input**: Code implementation
 - **Output**: pytest test suites and execution results
-- **Specialty**: Test-driven development, edge case identification, coverage analysis
+- **Specialty**: Test-driven development, edge case identification, coverage
+  analysis
 
 #### 🛠️ **Refactor Agent**
+
 - **Role**: Code improvement and integration
 - **Input**: Code + Review feedback + Test results
 - **Output**: Refined, production-ready code
 - **Specialty**: Code optimization, issue resolution, quality enhancement
 
 ### Agent Interaction Protocol
+
 - **State Management**: Shared state object tracks all artifacts
 - **Sequential Processing**: Ordered agent execution with feedback loops
 - **Quality Gates**: Automated decision points for workflow continuation
@@ -144,18 +171,21 @@ Final Code ← Refactor Agent ←←←← Decision Point ←←↓
 ## 🛠️ Technology Stack
 
 ### **Core Frameworks**
+
 - **LangGraph**: Multi-agent workflow orchestration
 - **LangChain**: LLM integration and agent foundation
 - **Streamlit**: Interactive web application framework
 - **Pydantic**: Data validation and configuration management
 
 ### **LLM Integration**
+
 - **Primary**: Azure OpenAI (GPT-4/GPT-4 Turbo)
 - **Alternative**: OpenAI GPT-3.5 Turbo
 - **Free Options**: Google Gemini Pro, Hugging Face models
 - **Framework**: langchain-openai for seamless integration
 
 ### **Development Tools**
+
 - **Testing**: pytest for automated test execution
 - **Environment**: python-dotenv for configuration
 - **Data Processing**: NumPy, Pandas for generated scripts
@@ -165,6 +195,7 @@ Final Code ← Refactor Agent ←←←← Decision Point ←←↓
 ### **Primary Choice: GPT-4 / GPT-4 Turbo**
 
 #### **Why GPT-4?**
+
 - **Superior Code Generation**: Exceptional Python programming capabilities
 - **Advanced Reasoning**: Complex code analysis and security review
 - **Consistency**: Reliable output quality across all agents
@@ -172,6 +203,7 @@ Final Code ← Refactor Agent ←←←← Decision Point ←←↓
 - **Integration**: Mature Azure OpenAI service with enterprise SLA
 
 #### **Technical Specifications**
+
 ```python
 MODEL_CONFIG = {
     "model": "gpt-4-turbo",
@@ -184,18 +216,21 @@ MODEL_CONFIG = {
 ### **Free-Tier Options**
 
 #### **🆓 OpenAI GPT-3.5 Turbo** (Recommended Budget Option)
+
 - **Cost**: $0.002/1K tokens (very affordable)
 - **Performance**: 70-80% of GPT-4 quality
 - **Speed**: Faster response times
 - **Use Case**: Development, testing, educational demos
 
 #### **🆓 Google Gemini Pro**
+
 - **Cost**: Generous free tier quotas
 - **Quality**: Competitive code generation
 - **Integration**: Available via Vertex AI
 - **Use Case**: Public demos, experimentation
 
 #### **🆓 Open Source Models** (Hugging Face)
+
 - **Options**: Code Llama, StarCoder, Mistral
 - **Cost**: Completely free (requires infrastructure)
 - **Control**: Full customization and privacy
@@ -203,17 +238,23 @@ MODEL_CONFIG = {
 
 ### **Model Selection Justification**
 
-**For Production**: GPT-4 provides the reliability and quality needed for business applications.
+**For Production**: GPT-4 provides the reliability and quality needed for
+business applications.
 
-**For Development**: GPT-3.5 Turbo offers excellent value for testing and iteration.
+**For Development**: GPT-3.5 Turbo offers excellent value for testing and
+iteration.
 
-**For Education**: Gemini Pro's free tier makes it perfect for demonstrations and learning.
+**For Education**: Gemini Pro's free tier makes it perfect for demonstrations
+and learning.
 
 ## 📚 Detailed Documentation
 
-- **[Project Overview](PROJECT_OVERVIEW.md)**: Comprehensive application description
-- **[Agent Architecture](AGENT_ARCHITECTURE.md)**: Detailed agent interactions and workflows  
-- **[Technology Stack](TECHNOLOGY_STACK.md)**: Complete framework and tool analysis
+- **[Project Overview](PROJECT_OVERVIEW.md)**: Comprehensive application
+  description
+- **[Agent Architecture](AGENT_ARCHITECTURE.md)**: Detailed agent interactions
+  and workflows
+- **[Technology Stack](TECHNOLOGY_STACK.md)**: Complete framework and tool
+  analysis
 - **[LLM Analysis](LLM_ANALYSIS.md)**: In-depth LLM selection and comparison
 - **[Deployment Guide](DEPLOYMENT.md)**: Step-by-step deployment instructions
 
@@ -238,23 +279,28 @@ MODEL_CONFIG = {
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Python 3.8+
 - Azure OpenAI API access (or alternative LLM provider)
 - Git for version control
 
 ### Installation
+
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/11HimanshuSharma/-DevGenius-AIMulti_Agent-.git
    cd DevGenius-AIMulti_Agent
    ```
 
 2. **Install dependencies**:
+
    ```bash
    pip install -r requirements.txt
    ```
 
 3. **Set up environment variables** (copy `.env.example` to `.env`):
+
    ```env
    AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=your_deployment_name
    AZURE_OPENAI_CHAT_ENDPOINT=https://your-resource.openai.azure.com/
@@ -267,6 +313,7 @@ MODEL_CONFIG = {
    ```
 
 ### Quick Start Example
+
 1. Open the application in your browser
 2. Enter a request: "Create a function to calculate fibonacci numbers"
 3. Adjust settings in the sidebar (optional)
@@ -276,15 +323,18 @@ MODEL_CONFIG = {
 
 ## 🌐 Live Demo
 
-🔗 **Deployed Application**: [DevGenius on Streamlit Cloud](https://your-app-name.streamlit.app)
+🔗 **Deployed Application**:
+[DevGenius on Streamlit Cloud](https://your-app-name.streamlit.app)
 
-*Try it yourself! The demo includes all features and showcases the complete multi-agent workflow.*
-   ```
+_Try it yourself! The demo includes all features and showcases the complete
+multi-agent workflow._
+
+````
 
 4. **Run the application**:
-   ```bash
-   streamlit run app.py
-   ```
+```bash
+streamlit run app.py
+````
 
 ## ⚙️ Configuration
 

@@ -1,9 +1,15 @@
+<!-- @format -->
+
 # 🏗️ Agent Architecture & Interaction Design
 
 ## 🔄 Multi-Agent System Design
 
 ### Architecture Overview
-DevGenius implements a **pipeline-based multi-agent architecture** with **feedback loops** and **quality gates**. Each agent is specialized for a specific domain while maintaining the ability to collaborate through shared state management.
+
+DevGenius implements a **pipeline-based multi-agent architecture** with
+**feedback loops** and **quality gates**. Each agent is specialized for a
+specific domain while maintaining the ability to collaborate through shared
+state management.
 
 ```mermaid
 graph TD
@@ -27,12 +33,14 @@ graph TD
 ### 1. Project Manager Agent (`project_manager_node`)
 
 **Responsibilities:**
+
 - Requirements analysis and decomposition
 - Task specification creation
 - Acceptance criteria definition
 - Scope management
 
 **Input Schema:**
+
 ```python
 {
     "task": str,  # Raw user request
@@ -41,12 +49,14 @@ graph TD
 ```
 
 **Processing Logic:**
+
 - Analyzes user intent and complexity
 - Breaks down requirements into actionable tasks
 - Defines clear acceptance criteria
 - Creates structured specifications
 
 **Output Schema:**
+
 ```python
 {
     "task": str,  # Refined task description
@@ -55,6 +65,7 @@ graph TD
 ```
 
 **Specialized Prompting:**
+
 - Focuses on business analysis techniques
 - Emphasizes clarity and actionability
 - Includes stakeholder perspective considerations
@@ -62,12 +73,14 @@ graph TD
 ### 2. Developer Agent (`developer_node`)
 
 **Responsibilities:**
+
 - Code architecture design
 - Implementation of core functionality
 - Best practice application
 - Documentation creation
 
 **Input Schema:**
+
 ```python
 {
     "task": str,  # Detailed task specification
@@ -77,12 +90,14 @@ graph TD
 ```
 
 **Processing Logic:**
+
 - Analyzes technical requirements
 - Designs appropriate code structure
 - Implements functionality with best practices
 - Ensures code readability and maintainability
 
 **Output Schema:**
+
 ```python
 {
     "code": str,  # Generated Python code
@@ -91,6 +106,7 @@ graph TD
 ```
 
 **Specialized Prompting:**
+
 - Emphasizes clean code principles
 - Focuses on Python best practices
 - Includes performance considerations
@@ -98,12 +114,14 @@ graph TD
 ### 3. Code Reviewer Agent (`reviewer_node`)
 
 **Responsibilities:**
+
 - Static code analysis
 - Security vulnerability assessment
 - Performance optimization suggestions
 - Coding standard compliance
 
 **Input Schema:**
+
 ```python
 {
     "code": str,  # Code to review
@@ -113,12 +131,14 @@ graph TD
 ```
 
 **Processing Logic:**
+
 - Performs comprehensive code analysis
 - Identifies potential security issues
 - Checks for code smells and anti-patterns
 - Suggests performance improvements
 
 **Output Schema:**
+
 ```python
 {
     "review": str,  # Detailed review feedback
@@ -127,6 +147,7 @@ graph TD
 ```
 
 **Specialized Prompting:**
+
 - Security-focused analysis
 - Performance optimization lens
 - Code quality metrics emphasis
@@ -134,12 +155,14 @@ graph TD
 ### 4. Tester Agent (`tester_node`)
 
 **Responsibilities:**
+
 - Test case design and creation
 - Unit test implementation
 - Test execution and validation
 - Coverage analysis
 
 **Input Schema:**
+
 ```python
 {
     "code": str,  # Code to test
@@ -149,12 +172,14 @@ graph TD
 ```
 
 **Processing Logic:**
+
 - Analyzes code for testable components
 - Designs comprehensive test cases
 - Implements pytest-based test suites
 - Executes tests and analyzes results
 
 **Output Schema:**
+
 ```python
 {
     "test_results": str,  # Test execution results
@@ -163,6 +188,7 @@ graph TD
 ```
 
 **Specialized Prompting:**
+
 - Test-driven development focus
 - Edge case identification
 - Comprehensive coverage goals
@@ -170,12 +196,14 @@ graph TD
 ### 5. Refactor Agent (`refactor_node`)
 
 **Responsibilities:**
+
 - Code improvement and optimization
 - Issue resolution based on feedback
 - Integration of review suggestions
 - Final quality assurance
 
 **Input Schema:**
+
 ```python
 {
     "code": str,  # Original code
@@ -187,12 +215,14 @@ graph TD
 ```
 
 **Processing Logic:**
+
 - Synthesizes feedback from multiple sources
 - Prioritizes critical issues
 - Applies refactoring patterns
 - Maintains functionality while improving quality
 
 **Output Schema:**
+
 ```python
 {
     "code": str,  # Improved code
@@ -202,6 +232,7 @@ graph TD
 ```
 
 **Specialized Prompting:**
+
 - Refactoring pattern expertise
 - Integration focus
 - Quality improvement emphasis
@@ -209,6 +240,7 @@ graph TD
 ## 🔄 Inter-Agent Communication
 
 ### State Management System
+
 ```python
 class AgentState(TypedDict):
     task: str                    # Current task description
@@ -224,16 +256,19 @@ class AgentState(TypedDict):
 ### Communication Protocol
 
 **1. Sequential Processing**
+
 - Each agent processes in predetermined order
 - State updates passed to next agent
 - Maintains context throughout workflow
 
 **2. Feedback Integration**
+
 - Review feedback influences refactoring
 - Test results guide improvements
 - Iterative refinement process
 
 **3. Quality Gates**
+
 - Decision points based on agent outputs
 - Automated quality assessment
 - Configurable approval criteria
@@ -245,13 +280,13 @@ def should_continue(state: AgentState) -> str:
     """Decision logic for workflow continuation"""
     if state['iterations'] >= state['max_iterations']:
         return "end"  # Max iterations reached
-    
+
     review = state.get("review", "").lower()
     test_results = state.get("test_results", "").lower()
-    
+
     # Quality gate conditions
-    if ("no issues found" in review and 
-        "tests failed" not in test_results and 
+    if ("no issues found" in review and
+        "tests failed" not in test_results and
         "error" not in test_results):
         return "end"  # Quality standards met
     else:
@@ -261,12 +296,14 @@ def should_continue(state: AgentState) -> str:
 ## 🎛️ Orchestration Framework
 
 ### LangGraph Implementation
+
 - **StateGraph**: Manages agent workflow
 - **Conditional Edges**: Dynamic routing based on outcomes
 - **State Persistence**: Maintains context across transitions
 - **Error Handling**: Graceful failure management
 
 ### Workflow Execution
+
 1. **Initialization**: Create initial state with user request
 2. **Sequential Processing**: Execute agents in defined order
 3. **Decision Points**: Evaluate continuation criteria
@@ -274,6 +311,7 @@ def should_continue(state: AgentState) -> str:
 5. **Finalization**: Deliver approved output
 
 ### Performance Optimizations
+
 - **Lazy Loading**: Agents loaded on demand
 - **State Compression**: Efficient state management
 - **Parallel Processing**: Independent operations when possible
@@ -282,18 +320,21 @@ def should_continue(state: AgentState) -> str:
 ## 🔧 Technical Implementation Details
 
 ### Agent Isolation
+
 - Each agent runs in isolated context
 - No direct agent-to-agent communication
 - State-mediated interaction only
 - Prevents interference and ensures reliability
 
 ### Error Handling Strategy
+
 - **Graceful Degradation**: Continue with warnings
 - **Retry Mechanisms**: Automatic retry on transient failures
 - **Fallback Strategies**: Alternative approaches on failures
 - **User Feedback**: Clear error communication
 
 ### Scalability Considerations
+
 - **Stateless Agents**: Easy horizontal scaling
 - **Modular Design**: Independent agent deployment
 - **Resource Management**: Efficient LLM utilization
