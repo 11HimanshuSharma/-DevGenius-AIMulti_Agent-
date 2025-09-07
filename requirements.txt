@@ -1,0 +1,29 @@
+# UI Framework
+streamlit
+
+# Core Framework
+fastapi
+uvicorn[standard]
+
+# LangChain & AI
+langchain
+langchain-openai
+langchain-groq
+langchain-community
+langgraph
+langsmith
+
+# Environment & Configuration
+python-dotenv
+pydantic
+
+# Data Processing
+numpy
+pandas
+
+# Development & Testing
+pytest
+pytest-asyncio
+
+# CORS and HTTP
+python-multipart
