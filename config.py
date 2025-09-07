@@ -70,7 +70,7 @@ def get_llm() -> AzureChatOpenAI:
         AzureChatOpenAI: Configured LLM instance
         
     Raises:
-        ValueError: If required credentials are missing
+        ValueError: If required credentials are missing or invalid
     """
     config = Config()
     
@@ -84,13 +84,24 @@ def get_llm() -> AzureChatOpenAI:
     if not config.AZURE_API_KEY:
         raise ValueError("Missing AZURE_OPENAI_CHAT_API_KEY. Please check your environment variables or Streamlit secrets.")
     
-    return AzureChatOpenAI(
-        azure_deployment=config.AZURE_DEPLOYMENT_NAME,
-        azure_endpoint=config.AZURE_ENDPOINT,
-        api_key=config.AZURE_API_KEY,
-        api_version=Config.AZURE_API_VERSION,
-        temperature=Config.TEMPERATURE,
-        max_tokens=Config.MAX_TOKENS,
-        timeout=Config.TIMEOUT,
-        max_retries=Config.MAX_RETRIES,
-    )
+    # Validate endpoint format
+    if not config.AZURE_ENDPOINT.startswith('https://'):
+        raise ValueError(f"Invalid endpoint format: {config.AZURE_ENDPOINT}. Should start with 'https://' and be your base Azure endpoint (not the full completion URL).")
+    
+    # Validate deployment name (should not be a URL)
+    if config.AZURE_DEPLOYMENT_NAME.startswith('http'):
+        raise ValueError(f"Invalid deployment name: {config.AZURE_DEPLOYMENT_NAME}. Should be just the deployment name (e.g., 'gpt-4o-2'), not a URL.")
+    
+    try:
+        return AzureChatOpenAI(
+            azure_deployment=config.AZURE_DEPLOYMENT_NAME,
+            azure_endpoint=config.AZURE_ENDPOINT,
+            api_key=config.AZURE_API_KEY,
+            api_version=Config.AZURE_API_VERSION,
+            temperature=Config.TEMPERATURE,
+            max_tokens=Config.MAX_TOKENS,
+            timeout=Config.TIMEOUT,
+            max_retries=Config.MAX_RETRIES,
+        )
+    except Exception as e:
+        raise ValueError(f"Failed to initialize Azure OpenAI client. Please check your credentials. Error: {str(e)}")
